@@ -15,11 +15,11 @@ const emailReducer = (state, action) => {
 };
 
 const passwordReducer = (state, action) => {
-  if (action.type === 'PASSWORD_INPUT') {
-    return { value: action.val, isValid: action.val.trim() > 6 };
+  if (action.type === 'USER_INPUT') {
+    return { value: action.val, isValid: action.val.trim().length > 6 };
   }
-  if (action.type === 'PASSWORD_BLUR') {
-    return { value: state.value, isValid: state.value.trim() > 6 };
+  if (action.type === 'INPUT_BLUR') {
+    return { value: state.value, isValid: state.value.trim().length > 6 };
   }
   return { value: '', isValid: false };
 };
@@ -66,7 +66,7 @@ const Login = props => {
   };
 
   const passwordChangeHandler = event => {
-    dispatchPassword({ type: 'PASSWORD_INPUT', val: event.target.value });
+    dispatchPassword({ type: 'USER_INPUT', val: event.target.value });
 
     setFormIsValid(emailState.isValid && event.target.value.trim().length > 6);
   };
@@ -76,9 +76,7 @@ const Login = props => {
   };
 
   const validatePasswordHandler = () => {
-    dispatchPassword({ type: 'PASSWORD_BLUR' });
-
-    // setpasswordState.isValid(enteredPassword.trim().length > 6);
+    dispatchPassword({ type: 'INPUT_BLUR' });
   };
 
   const submitHandler = event => {
